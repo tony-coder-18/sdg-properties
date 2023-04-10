@@ -19,7 +19,7 @@ I will develop the api using a **3 layer architecture**:
 
 # Endpoints
 ## Query Service
-- GET `/api/v1/properties`
+- GET `/api/v1/`
 - GET `/api/v1/presale`
 - GET `/api/v1/forsale`
 - GET `/api/v1/sold`
