@@ -150,19 +150,19 @@ const getAllProperties = async (filterParams) => {
 
         propertiesLastStatus = removeDuplicates(propertiesReversed, 'address').reverse();
 
-        if (filterParams.year) {
-            propertiesLastStatus = propertiesLastStatus.filter((p)=>{
-                const updateDate = p.statuses.status_history.update_date;
-                console.log(typeof updateDate);
-                return true;
-                // return updateDate.include(filterParams.year);
-            })
+        if (filterParams) {
+            if (filterParams.year) {
+                propertiesLastStatus = propertiesLastStatus.filter((p)=>{
+                    const updateDate = p.statuses.status_history.update_date;
+                    return updateDate.getUTCFullYear().toString() === filterParams.year;
+                })
+            }
         }
 
         // SHow only the name of status
-        // propertiesLastStatus = propertiesLastStatus.map((r) => {
-        //     return ({ ...r, statuses: r.statuses.name })
-        // })
+        propertiesLastStatus = propertiesLastStatus.map((r) => {
+            return ({ ...r, statuses: r.statuses.name })
+        })
 
 
         return propertiesLastStatus;
@@ -173,9 +173,9 @@ const getAllProperties = async (filterParams) => {
 
 };
 
-const getAllPropertiesPreSale = async () => {
+const getAllPropertiesPreSale = async (filterParams) => {
     try {
-        const allProperties = await getAllProperties();
+        const allProperties = await getAllProperties(filterParams);
         const propertiesPreSale = allProperties.filter((p) => p.statuses === "pre_venta");
 
         return propertiesPreSale;
@@ -184,9 +184,9 @@ const getAllPropertiesPreSale = async () => {
     }
 }
 
-const getAllPropertiesForSale = async () => {
+const getAllPropertiesForSale = async (filterParams) => {
     try {
-        const allProperties = await getAllProperties();
+        const allProperties = await getAllProperties(filterParams);
         const propertiesForSale = allProperties.filter((p) => p.statuses === "en_venta");
 
         return propertiesForSale;
@@ -195,9 +195,9 @@ const getAllPropertiesForSale = async () => {
     }
 }
 
-const getAllPropertiesSold = async () => {
+const getAllPropertiesSold = async (filterParams) => {
     try {
-        const allProperties = await getAllProperties();
+        const allProperties = await getAllProperties(filterParams);
         const propertiesSold = allProperties.filter((p) => p.statuses === "vendido");
 
         return propertiesSold;
@@ -207,7 +207,6 @@ const getAllPropertiesSold = async () => {
 }
 
 module.exports = {
-    getAllProperties,
     getAllPropertiesPreSale,
     getAllPropertiesForSale,
     getAllPropertiesSold
