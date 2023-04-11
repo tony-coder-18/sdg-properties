@@ -26,10 +26,17 @@ I will develop the api using a **3 layer architecture**:
 
 Users can filter by:
 - Year of construction
+    With the key "year"
     - E.g. ?year=2023
 - City
+    with the key "city"
     - E.g. ?city=Random%20City
 - State
+    with the key "state"
+    The 3 options are:
+        - pre-venta
+        - en-venta
+        - vendido
     - E.g. ?state=sold
 
 # Questions

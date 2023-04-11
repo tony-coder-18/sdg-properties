@@ -132,7 +132,7 @@ const getAllProperties = async (filterParams) => {
             include: [
                 {
                     model: Status,
-                    attributes: ['name']
+                    attributes: ['name', 'label']
                 }
             ],
             raw: true,
@@ -163,12 +163,18 @@ const getAllProperties = async (filterParams) => {
                     return city.toLowerCase().includes(filterParams.city.toLowerCase());
                 })
             }
+            if (filterParams.state) {
+                propertiesLastStatus = propertiesLastStatus.filter((p) => {
+                    const state = p.statuses.name.replace("_", "-");
+                    return state.toLowerCase().includes(filterParams.state.toLowerCase());
+                })
+            }
         }
 
         // SHow only the name of status and remove the "year" field
         propertiesLastStatus = propertiesLastStatus.map((p) => {
             delete p.year;
-            return ({ ...p, statuses: p.statuses.name })
+            return ({ ...p, statuses: p.statuses.label })
         })
 
         return propertiesLastStatus;
@@ -182,7 +188,7 @@ const getAllProperties = async (filterParams) => {
 const getAllPropertiesPreSale = async (filterParams) => {
     try {
         const allProperties = await getAllProperties(filterParams);
-        const propertiesPreSale = allProperties.filter((p) => p.statuses === "pre_venta");
+        const propertiesPreSale = allProperties.filter((p) => p.statuses === "Pre Venta");
 
         return propertiesPreSale;
     } catch (error) {
@@ -193,7 +199,7 @@ const getAllPropertiesPreSale = async (filterParams) => {
 const getAllPropertiesForSale = async (filterParams) => {
     try {
         const allProperties = await getAllProperties(filterParams);
-        const propertiesForSale = allProperties.filter((p) => p.statuses === "en_venta");
+        const propertiesForSale = allProperties.filter((p) => p.statuses === "En Venta");
 
         return propertiesForSale;
     } catch (error) {
@@ -204,7 +210,7 @@ const getAllPropertiesForSale = async (filterParams) => {
 const getAllPropertiesSold = async (filterParams) => {
     try {
         const allProperties = await getAllProperties(filterParams);
-        const propertiesSold = allProperties.filter((p) => p.statuses === "vendido");
+        const propertiesSold = allProperties.filter((p) => p.statuses === "Vendido");
 
         return propertiesSold;
     } catch (error) {
