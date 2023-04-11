@@ -5,7 +5,7 @@ const getAllPropertiesPreSale = async (req, res) => {
 
     try {
         const allPropertiesPreSale = await propertyService.getAllPropertiesPreSale({year, city, state});
-        res.send({
+        res.status(200).send({
             status: "OK",
             data: allPropertiesPreSale
         })
@@ -25,7 +25,7 @@ const getAllPropertiesForSale = async (req, res) => {
 
     try {
         const allPropertiesForSale = await propertyService.getAllPropertiesForSale({year, city, state});
-        res.send({
+        res.status(200).send({
             status: "OK",
             data: allPropertiesForSale
         });
@@ -44,7 +44,7 @@ const getAllPropertiesSold = async (req, res) => {
 
     try {
         const allPropertiesSold = await propertyService.getAllPropertiesSold({year, city, state});
-        res.send({
+        res.status(200).send({
             status: "OK",
             data: allPropertiesSold
         })

@@ -1,18 +1,12 @@
-require('dotenv').config();
+const dbConfig = require("../../config/db.config.js");
 
 const { Sequelize, DataTypes } = require('sequelize');
 
-// const DATABASE = process.env.DATABASE;
-// const USERNAME = process.env.USERNAME;
-// const PASSWORD = process.env.PASSWORD;
-// const DATABASE_PORT = process.env.DATABASE_PORT;
-// const HOST = process.env.HOST;
-
-const DATABASE = "isrhdnag";
-const USERNAME = "isrhdnag";
-const PASSWORD = "hEIxLnFR2us893BgnC8T7y3hpUTTlh57";
-const DATABASE_PORT = 5432;
-const HOST = "lallah.db.elephantsql.com";
+const DATABASE = dbConfig.DB;
+const USERNAME = dbConfig.USER;
+const PASSWORD = dbConfig.PASSWORD;
+const HOST = dbConfig.DATABASE_HOST;
+const DATABASE_PORT = dbConfig.DATABASE_PORT;
 
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     host: HOST,
@@ -21,7 +15,6 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
 });
 
 const Property = sequelize.define('property', {
-    // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -43,13 +36,11 @@ const Property = sequelize.define('property', {
         type: DataTypes.BIGINT
     },
 }, {
-    // Other model options go here
     timestamps: false,
     freezeTableName: true
 });
 
 const Status = sequelize.define('status', {
-    // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -68,7 +59,6 @@ const Status = sequelize.define('status', {
 });
 
 const StatusHistory = sequelize.define('status_history', {
-    // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -92,7 +82,6 @@ const StatusHistory = sequelize.define('status_history', {
         }
     },
 }, {
-    // Other model options go here
     timestamps: false,
     freezeTableName: true
 });
@@ -108,15 +97,10 @@ Property.belongsToMany(Status, {
     through: StatusHistory,
     foreignKey: 'property_id',
     otherKey: 'status_id',
-    // order: [[Status, 'update_date', 'ASC']],
-    // limit: 1
 });
 
 StatusHistory.belongsTo(Property, { foreignKey: 'property_id' });
 StatusHistory.belongsTo(Status, { foreignKey: 'status_id' });
-
-// Property.hasMany(StatusHistory, { foreignKey: 'property_id' });
-// Status.hasMany(StatusHistory, { foreignKey: 'status_id' });
 
 // Sync the "property" table with the database
 sequelize.sync().then(() => {
