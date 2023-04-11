@@ -35,16 +35,15 @@ Users can filter by:
 - **State**
 
     With the key "state"
-    The 3 options are:
-        - pre-venta
-        - en-venta
-        - vendido
+    The 3 options are: **pre-venta**, **en-venta** y **vendido**
     - E.g. ?state=pre-venta
 
 # Questions
 
 - Should I make a endpoint for getting all the properties?
-R/= Yes, although in the task description it doesn't explicitly say that one should be able to get all the properties, I think it's beneficial for the user to get that information.
+
+R/= No, because in the task description it says "properties with different states should never be visible by the user". 
 
 - Should I make endpoints for getting a specific property with its id?
+
 R/= No, it's not necessary.
