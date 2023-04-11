@@ -1,5 +1,4 @@
 const dbConfig = require("./config/db.config.js");
-
 const express = require("express"); 
 const v1PropertyRouter = require("./src/v1/routes/propertyRoutes");
 

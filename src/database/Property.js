@@ -53,7 +53,6 @@ const Status = sequelize.define('status', {
         type: DataTypes.STRING
     }
 }, {
-    // Other model options go here
     timestamps: false,
     freezeTableName: true
 });
@@ -102,11 +101,10 @@ Property.belongsToMany(Status, {
 StatusHistory.belongsTo(Property, { foreignKey: 'property_id' });
 StatusHistory.belongsTo(Status, { foreignKey: 'status_id' });
 
-// Sync the "property" table with the database
 sequelize.sync().then(() => {
-    console.log('Table "property" synced successfully.');
+    console.log('Tablessynced successfully.');
 }).catch((err) => {
-    console.error('Unable to sync table "property":', err);
+    console.error('Unable to sync tables:', err);
 });
 
 const getAllProperties = async (filterParams) => {
@@ -173,7 +171,6 @@ const getAllPropertiesPreSale = async (filterParams) => {
     try {
         const allProperties = await getAllProperties(filterParams);
         const propertiesPreSale = allProperties.filter((p) => p.statuses === "Pre Venta");
-
         return propertiesPreSale;
     } catch (error) {
         throw error
@@ -184,7 +181,6 @@ const getAllPropertiesForSale = async (filterParams) => {
     try {
         const allProperties = await getAllProperties(filterParams);
         const propertiesForSale = allProperties.filter((p) => p.statuses === "En Venta");
-
         return propertiesForSale;
     } catch (error) {
         throw error
@@ -195,7 +191,6 @@ const getAllPropertiesSold = async (filterParams) => {
     try {
         const allProperties = await getAllProperties(filterParams);
         const propertiesSold = allProperties.filter((p) => p.statuses === "Vendido");
-
         return propertiesSold;
     } catch (error) {
         throw error
