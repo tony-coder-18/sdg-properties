@@ -1,24 +1,48 @@
 const propertyService = require("../services/propertyService")
 
-const getAllProperties = (req, res) => {
-    const allProperties = propertyService.getAllProperties();
+const getAllProperties = async (req, res) => {
+    const { year } = req.query;
 
-    res.send("Get all properties")
+    try {
+        const allProperties = await propertyService.getAllProperties({year});
+        res.send({status: "OK", data: allProperties})
+        
+    } catch (error) {
+        res.send({
+            status: "FAILED", 
+            data: {
+                error: error
+            }
+        })
+
+    }
 }
 
-const getAllPropertiesPreSale = (req, res) => {
-    const allPropertiesPreSale = propertyService.getAllPropertiesPreSale();
-    res.send("Get all the properties in pre-sale")
+const getAllPropertiesPreSale = async (req, res) => {
+    try {
+        const allPropertiesPreSale = await propertyService.getAllPropertiesPreSale();
+        res.send(allPropertiesPreSale)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-const getAllPropertiesForSale = (req, res) => {
-    const allPropertiesForSale = propertyService.getAllPropertiesForSale();
-    res.send("Get all the properties for sale")
+const getAllPropertiesForSale = async (req, res) => {
+    try {
+        const allPropertiesForSale = await propertyService.getAllPropertiesForSale();
+        res.send(allPropertiesForSale)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-const getAllPropertiesSold = (req, res) => {
-    const allPropertiesSold = propertyService.getAllPropertiesSold();
-    res.send("Get all the sold properties")
+const getAllPropertiesSold = async (req, res) => {
+    try {
+        const allPropertiesSold = await propertyService.getAllPropertiesSold();
+        res.send(allPropertiesSold)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 module.exports = {

@@ -1,17 +1,23 @@
-const getAllProperties = () => {
-    return;
+const Property = require("../../database/Property")
+
+const getAllProperties = (filterParams) => {
+    const allProperties = Property.getAllProperties(filterParams);
+    return allProperties;
 }
 
 const getAllPropertiesPreSale = () => {
-    return;
+    const allPropertiesPreSale = Property.getAllPropertiesPreSale();
+    return allPropertiesPreSale;
 }
 
 const getAllPropertiesForSale = () => {
-    return;
+    const allPropertiesForSale = Property.getAllPropertiesForSale();
+    return allPropertiesForSale;
 }
 
 const getAllPropertiesSold = () => {
-    return;
+    const allPropertiesSold = Property.getAllPropertiesSold();
+    return allPropertiesSold;
 }
 
 module.exports = {

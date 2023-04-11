@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require("express"); 
 const v1PropertyRouter = require("./src/v1/routes/propertyRoutes");
 
 const app = express(); 
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT; 
 
 app.use("/api/v1", v1PropertyRouter);
 
