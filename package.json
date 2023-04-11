@@ -4,7 +4,14 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "jest --watch --verbose"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -17,6 +24,8 @@
     "sequelize": "^6.31.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
   }
 }

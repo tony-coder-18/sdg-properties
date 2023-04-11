@@ -7,7 +7,7 @@
 - Open API (Style guide)
 - Swagger UI Express (Documentation)
 - Sequelize (ORM)
-- Jest (Unit Testing)
+- Jest and Supertest (Unit Testing)
 
 # Development Approach
 

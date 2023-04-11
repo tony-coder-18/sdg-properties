@@ -11,3 +11,5 @@ app.use("/api/v1", v1PropertyRouter);
 app.listen(PORT, () => { 
     console.log(`API is listening on port ${PORT}`); 
 });
+
+module.exports = app;
