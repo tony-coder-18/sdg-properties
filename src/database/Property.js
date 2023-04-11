@@ -128,7 +128,7 @@ sequelize.sync().then(() => {
 const getAllProperties = async (filterParams) => {
     try {
         const properties = await Property.findAll({
-            attributes: ['address', 'city', 'price', 'description'],
+            attributes: ['address', 'city', 'price', 'description', 'year'],
             include: [
                 {
                     model: Status,
@@ -152,18 +152,24 @@ const getAllProperties = async (filterParams) => {
 
         if (filterParams) {
             if (filterParams.year) {
-                propertiesLastStatus = propertiesLastStatus.filter((p)=>{
-                    const updateDate = p.statuses.status_history.update_date;
-                    return updateDate.getUTCFullYear().toString() === filterParams.year;
+                propertiesLastStatus = propertiesLastStatus.filter((p) => {
+                    const constructionDate = p.year;
+                    return constructionDate.toString() === filterParams.year;
+                })
+            }
+            if (filterParams.city) {
+                propertiesLastStatus = propertiesLastStatus.filter((p) => {
+                    const city = p.city;
+                    return city.toLowerCase().includes(filterParams.city.toLowerCase());
                 })
             }
         }
 
-        // SHow only the name of status
-        propertiesLastStatus = propertiesLastStatus.map((r) => {
-            return ({ ...r, statuses: r.statuses.name })
+        // SHow only the name of status and remove the "year" field
+        propertiesLastStatus = propertiesLastStatus.map((p) => {
+            delete p.year;
+            return ({ ...p, statuses: p.statuses.name })
         })
-
 
         return propertiesLastStatus;
     } catch (error) {

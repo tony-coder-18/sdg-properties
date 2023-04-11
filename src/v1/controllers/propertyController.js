@@ -1,10 +1,10 @@
 const propertyService = require("../services/propertyService")
 
 const getAllPropertiesPreSale = async (req, res) => {
-    const {year} = req.query;
+    const {year, city} = req.query;
 
     try {
-        const allPropertiesPreSale = await propertyService.getAllPropertiesPreSale({year});
+        const allPropertiesPreSale = await propertyService.getAllPropertiesPreSale({year, city});
         res.send({
             status: "OK",
             data: allPropertiesPreSale
@@ -21,10 +21,10 @@ const getAllPropertiesPreSale = async (req, res) => {
 }
 
 const getAllPropertiesForSale = async (req, res) => {
-    const {year} = req.query;
+    const {year, city} = req.query;
 
     try {
-        const allPropertiesForSale = await propertyService.getAllPropertiesForSale({year});
+        const allPropertiesForSale = await propertyService.getAllPropertiesForSale({year, city});
         res.send({
             status: "OK",
             data: allPropertiesForSale
@@ -40,10 +40,10 @@ const getAllPropertiesForSale = async (req, res) => {
 }
 
 const getAllPropertiesSold = async (req, res) => {
-    const {year} = req.query;
+    const {year, city} = req.query;
 
     try {
-        const allPropertiesSold = await propertyService.getAllPropertiesSold({year});
+        const allPropertiesSold = await propertyService.getAllPropertiesSold({year, city});
         res.send({
             status: "OK",
             data: allPropertiesSold
